@@ -5,7 +5,7 @@ public class World {
     private Organism[][] board;
     private final int x, y;
     private int round = 0;
-    protected ArrayList<String> logs = new ArrayList<String>();
+    public ArrayList<String> logs = new ArrayList<String>();
 
     public World (int x, int y) {
         this.x = x;

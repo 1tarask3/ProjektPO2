@@ -18,7 +18,7 @@ public class InfoPanel extends JPanel {
     private WorldManager worldManager;
     private GameGUI GUI;
 
-    InfoPanel(WorldManager worldManager, GameGUI GUI) {
+    public InfoPanel(WorldManager worldManager, GameGUI GUI) {
         this.setFocusable(false);
         this.worldManager = worldManager;
         this.GUI = GUI;
@@ -71,6 +71,4 @@ public class InfoPanel extends JPanel {
         this.setFocusable(false);
         this.setVisible(true);
     }
-
-
 }

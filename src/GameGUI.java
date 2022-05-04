@@ -73,10 +73,10 @@ public class GameGUI extends JFrame implements KeyListener {
             for (int i = 0; i < world.getY(); i++) {
                 for (int j = 0; j < world.getX(); j++) {
                     if (world.getOrganismFromBoard(new Point(j, i)) != null) {
-                        gamePanel.add(new Tile(tileSize, world.getOrganismFromBoard(new Point(j, i)).getColor()));
+                        gamePanel.add(new Tile(tileSize, world.getOrganismFromBoard(new Point(j, i)).getColor(), new Point(j, i), world));
                     }
                     else {
-                        gamePanel.add(new Tile(tileSize, Color.black));
+                        gamePanel.add(new Tile(tileSize, Color.black, new Point(j, i), world));
                     }
                 }
             }
