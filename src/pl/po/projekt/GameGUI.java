@@ -118,6 +118,7 @@ public class GameGUI extends JFrame implements KeyListener {
                     break;
                 default:
                     humansDirection = null;
+                    infoPanel.humansDirection.setText("BRAK");
                     break;
             }
         }
