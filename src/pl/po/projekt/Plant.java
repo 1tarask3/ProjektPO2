@@ -1,9 +1,14 @@
-import com.sun.jndi.toolkit.url.GenericURLContext;
+package pl.po.projekt;
 
 import java.util.Random;
 
 public abstract class Plant extends Organism {
     private final int spreadProbability; // prawdopodobieństwo rozprzestrzenienia się rośliny w skali od 0 do 100
+
+    public Plant() {
+        super();
+        spreadProbability = 0;
+    }
 
     public Plant(int strength, int spreadProbability, Point position, World world) {
         super(strength, 0, position, world);
@@ -31,19 +36,19 @@ public abstract class Plant extends Organism {
             world.addLog(this.getName() + " at " + this.getPosition().toString() +  " has spread");
 
             if (this instanceof Grass) {
-                newOrganism = new Grass(possiblePositions[rand], world);
+                new Grass(possiblePositions[rand], world);
             }
             else if (this instanceof Dandelion) {
-                newOrganism = new Dandelion(possiblePositions[rand], world);
+                new Dandelion(possiblePositions[rand], world);
             }
             else if (this instanceof Guarana) {
-                newOrganism = new Guarana(possiblePositions[rand], world);
+                new Guarana(possiblePositions[rand], world);
             }
             else if (this instanceof Hogweed) {
-                newOrganism = new Hogweed(possiblePositions[rand], world);
+                new Hogweed(possiblePositions[rand], world);
             }
             else if (this instanceof Belladonna) {
-                newOrganism = new Belladonna(possiblePositions[rand], world);
+                new Belladonna(possiblePositions[rand], world);
             }
         }
         else {
@@ -68,5 +73,6 @@ public abstract class Plant extends Organism {
         attacker.setPosition(position);
         world.placeOnBoard(attacker);
         world.addLog(attacker.getName() + " has eaten " + this.getName() + " at " + this.position.toString());
+        position = null;
     }
 }

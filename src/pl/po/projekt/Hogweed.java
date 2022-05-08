@@ -1,6 +1,9 @@
-import java.awt.*;
+package pl.po.projekt;
+
+import java.awt.Color;
 
 public class Hogweed extends Plant {
+    public Hogweed() {super();}
     public Hogweed(Point position, World world) {
         super(0, 3, position, world);
     }
@@ -11,7 +14,7 @@ public class Hogweed extends Plant {
             Point tmp = position.shift(direction, 1);
             if (tmp.isOnTheBoard(world)) {
                 if (world.getOrganismFromBoard(tmp) != null && world.getOrganismFromBoard(tmp).isAnimal()) {
-                    world.addLog("Hogweed has killed " + world.getOrganismFromBoard(tmp).getName() + " at " + tmp.toString());
+                    world.addLog("Hogweed has killed " + world.getOrganismFromBoard(tmp).getName() + " at " + tmp);
                     world.setOrganismOnBoard(tmp, null);
                 }
             }
@@ -22,6 +25,10 @@ public class Hogweed extends Plant {
     @Override
     public void collision(Organism attacker) {
         world.setOrganismOnBoard(attacker.getPosition(), null);
+        attacker.setPosition(null);
+        world.setOrganismOnBoard(position, null);
+        world.addLog(attacker.getName() + " has eaten Hogweed at " + position.toString() + " and died");
+        position = null;
     }
 
     @Override

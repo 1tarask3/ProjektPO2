@@ -1,6 +1,9 @@
-import java.awt.*;
+package pl.po.projekt;
+
+import java.awt.Color;
 
 public class Belladonna extends Plant {
+    public Belladonna() {super();}
     public Belladonna(Point position, World world) {
         super(99, 4, position, world);
     }
@@ -11,7 +14,8 @@ public class Belladonna extends Plant {
     @Override
     public void collision(Organism attacker) {
         world.setOrganismOnBoard(attacker.getPosition(), null);
-        world.addLog(attacker.getName() + " has eaten " + this.getName() + " at " + this.position.toString());
+        world.addLog(attacker.getName() + " has eaten " + this.getName() + " at " + this.position.toString() + " and died");
+        attacker.setPosition(null);
     }
 
     @Override

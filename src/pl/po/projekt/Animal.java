@@ -1,12 +1,15 @@
+package pl.po.projekt;
+
 import java.util.Random;
 
 public abstract class Animal extends Organism {
+    public Animal() {super();}
     public Animal(int strength, int initiative, Point position, World world) {
         super(strength, initiative, position, world);
     }
 
-    public final void moveTo(Point newPosition) {
-        world.addLog(this.getName() + " moving from " + position.toString() +  " to " + newPosition.toString());
+    public void moveTo(Point newPosition) {
+       // world.addLog(this.getName() + " moving from " + getPosition().toString() +  " to " + newPosition.toString());
         if (getWorld().getOrganismFromBoard(newPosition) == null) {
             getWorld().setOrganismOnBoard(position, null);
             this.position = newPosition;
@@ -30,7 +33,7 @@ public abstract class Animal extends Organism {
         if (count > 0) {
             int rand = new Random().nextInt(count);
             Point newPosition = availableMoves[rand];
-            this.moveTo(newPosition);
+            if (newPosition != null) this.moveTo(newPosition);
         }
         else {
             world.addLog(this.getName() + " at " + this.position.toString() + "tried to move, but there is no empty place");
@@ -49,9 +52,11 @@ public abstract class Animal extends Organism {
                     attacker.setPosition(position);
                     world.placeOnBoard(attacker);
                     world.addLog(this.getName() + " died at position " + this.position.toString());
+                    position = null;
                 }
                 else {
                     world.setOrganismOnBoard(attacker.getPosition(), null);
+                    attacker.setPosition(null);
                     world.addLog(attacker.getName() + " died at position " + this.position.toString());
                 }
             }
@@ -98,26 +103,27 @@ public abstract class Animal extends Organism {
             world.addLog("Procreation of organisms " + getName() + " at positions " + this.getPosition().toString() + " " + organism.getPosition().toString());
 
             int rand = new Random().nextInt(count);
-            Organism newOrganism = null;
 
             if (this instanceof Wolf) {
-                newOrganism = new Wolf(possiblePositions[rand], world);
+                new Wolf(possiblePositions[rand], world);
             }
             else if (this instanceof Sheep) {
-                newOrganism = new Sheep(possiblePositions[rand], world);
+                new Sheep(possiblePositions[rand], world);
             }
             else if (this instanceof Fox) {
-                newOrganism = new Fox(possiblePositions[rand], world);
+                new Fox(possiblePositions[rand], world);
             }
             else if (this instanceof Turtle) {
-                newOrganism = new Turtle(possiblePositions[rand], world);
+                new Turtle(possiblePositions[rand], world);
             }
             else if (this instanceof Antelope) {
-                newOrganism = new Antelope(possiblePositions[rand], world);
+                new Antelope(possiblePositions[rand], world);
             }
         }
         else {
-            world.addLog("No place for procreation for " + this.getName() + " at " + this.getPosition().toString() + " and " + organism.getPosition().toString());
+            world.addLog("No place to procreate for " + this.getName() + " at " + this.getPosition().toString() + " and " + organism.getPosition().toString());
         }
     }
+
+    public abstract boolean sameSpecies(Organism organism);
 }

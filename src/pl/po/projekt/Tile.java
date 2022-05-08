@@ -1,21 +1,22 @@
+package pl.po.projekt;
+
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Tile extends JPanel implements MouseListener {
-    private Point position;
-    private World world;
-    private Color color;
+    private final Point position;
+    private final WorldManager worldManager;
+    private final Color color;
+    private final GameGUI gui;
 
-    Tile(int size, Color color, Point position, World world) {
+    Tile(GameGUI gui, int size, Color color, Point position, WorldManager worldManager) {
         this.addMouseListener(this);
         this.position = position;
-        this.world = world;
+        this.worldManager = worldManager;
         this.color = color;
+        this.gui = gui;
         this.setPreferredSize(new Dimension(size, size));
         this.setBackground(color);
         this.setForeground(color);
@@ -25,7 +26,7 @@ public class Tile extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        if (worldManager.getWorld().getOrganismFromBoard(position) == null) new AddNewOrganismPanel(gui, this, worldManager);
     }
 
     @Override
@@ -51,5 +52,9 @@ public class Tile extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
         this.setBackground(color);
+    }
+
+    public Point getPosition() {
+        return position;
     }
 }

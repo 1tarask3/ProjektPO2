@@ -1,3 +1,7 @@
+package pl.po.projekt;
+
+import java.util.Random;
+
 public class Point {
     private int x, y;
 
@@ -6,19 +10,19 @@ public class Point {
         this.y = y;
     }
 
-    void setX(int x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
 
-    void setY(int y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    int getY() {
+    public int getY() {
         return y;
     }
 
@@ -46,8 +50,27 @@ public class Point {
     }
 
     public boolean isOnTheBoard(World world) {
-        if ((x >= 0 && x < world.getX()) && (y >= 0 && y < world.getY())) return true;
-        else return false;
+        return (x >= 0 && x < world.getX()) && (y >= 0 && y < world.getY());
+    }
+
+    public Point nextNotOccupiedPosition(World world) {
+        Point[] availableMoves = new Point[4];
+        int count = 0;
+        int rand;
+        for (Direction direction : Direction.values()) {
+            Point move = this.shift(direction, 1);
+            if (move.isOnTheBoard(world)) {
+                if (world.getOrganismFromBoard(move) == null) {
+                    availableMoves[count] = move;
+                    count++;
+                }
+            }
+        }
+        if (count > 0) {
+            rand = new Random().nextInt(count);
+            return availableMoves[rand];
+        }
+        else return null;
     }
 
     public String toString() {

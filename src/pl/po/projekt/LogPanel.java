@@ -1,12 +1,16 @@
-import javax.swing.*;
+package pl.po.projekt;
+
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import javax.xml.soap.Text;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Color;
 
 public class LogPanel extends JPanel {
-    private JTextArea textArea;
-    private JScrollPane scrollPane;
+    private final JTextArea textArea;
 
     LogPanel() {
         this.setFocusable(false);
@@ -16,7 +20,7 @@ public class LogPanel extends JPanel {
         textArea.setPreferredSize(new Dimension(380, 500));
         textArea.setBackground(Color.white);
         textArea.setVisible(true);
-        scrollPane = new JScrollPane(textArea);
+        JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setFocusable(false);
         scrollPane.setPreferredSize(new Dimension(380, 520));
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

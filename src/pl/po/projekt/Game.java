@@ -1,4 +1,4 @@
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+package pl.po.projekt;
 
 public class Game {
     public static void main(String[] args) {

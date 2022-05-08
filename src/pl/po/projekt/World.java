@@ -1,11 +1,13 @@
-import java.io.OutputStream;
-import java.util.*;
+package pl.po.projekt;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class World {
-    private Organism[][] board;
+    private final Organism[][] board;
     private final int x, y;
     private int round = 0;
-    public ArrayList<String> logs = new ArrayList<String>();
+    public ArrayList<String> logs = new ArrayList<>();
 
     public World (int x, int y) {
         this.x = x;
@@ -22,8 +24,15 @@ public class World {
     }
 
     public Organism getOrganismFromBoard(Point position) {
-        return board[position.getX()][position.getY()];
+        if (position.isOnTheBoard(this)) return board[position.getX()][position.getY()];
+        return null;
     }
+
+    public Organism getOrganismFromBoard(int x, int y) {
+        if (x >= 0 && x <= this.x && y >= 0 && y <= this.y) return board[x][y];
+        return null;
+    }
+
     public int getX() {
         return x;
     }
@@ -67,7 +76,7 @@ public class World {
     }
 
     public void allOrganismsAction() {
-        ArrayList<Organism> organisms = new ArrayList<Organism>();
+        ArrayList<Organism> organisms = new ArrayList<>();
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
                 if (board[i][j] != null) {
@@ -76,16 +85,13 @@ public class World {
             }
         }
 
-        organisms.sort(new Comparator<Organism>() {
-            @Override
-            public int compare(Organism o1, Organism o2) {
-                if (o1.getInitiative() > o2.getInitiative()) return -1;
-                else if (o1.getInitiative() < o2.getInitiative()) return 1;
-                else {
-                    if (o1.getAge() > o2.getAge()) return -1;
-                    else if (o1.getAge() < o2.getAge()) return 1;
-                    else return 0;
-                }
+        organisms.sort((o1, o2) -> {
+            if (o1.getInitiative() > o2.getInitiative()) return -1;
+            else if (o1.getInitiative() < o2.getInitiative()) return 1;
+            else {
+                if (o1.getAge() > o2.getAge()) return -1;
+                else if (o1.getAge() < o2.getAge()) return 1;
+                else return 0;
             }
         });
 
@@ -94,7 +100,7 @@ public class World {
         }
 
         for (Organism organism : organisms) {
-            organism.action();
+            if (organism != null && organism.getPosition() != null) organism.action();
         }
     }
 
@@ -107,10 +113,10 @@ public class World {
     }
 
     public String getLogs() {
-        String result = new String();
-        for (int i = 0; i < logs.size(); i++) {
-            result += logs.get(i) + "\n";
+        StringBuilder result = new StringBuilder();
+        for (String log : logs) {
+            result.append(log).append("\n");
         }
-        return result;
+        return result.toString();
     }
 }

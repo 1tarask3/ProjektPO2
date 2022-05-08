@@ -1,7 +1,10 @@
+package pl.po.projekt;
+
 import java.awt.*;
 import java.util.Random;
 
 public class Turtle extends Animal {
+    public Turtle() {super();}
     public Turtle(Point position, World world) {
         super(2, 1, position, world);
     }

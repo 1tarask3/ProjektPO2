@@ -1,6 +1,9 @@
-import java.awt.*;
+package pl.po.projekt;
+
+import java.awt.Color;
 
 public class Dandelion extends Plant {
+    public Dandelion() {super();}
     public Dandelion(Point position, World world) {
         super(0, 8, position, world);
     }

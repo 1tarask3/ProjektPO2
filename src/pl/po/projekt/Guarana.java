@@ -1,6 +1,9 @@
-import java.awt.*;
+package pl.po.projekt;
+
+import java.awt.Color;
 
 public class Guarana extends Plant {
+    public Guarana() {super();}
     public Guarana(Point position, World world) {
         super(0, 10,position, world);
     }
@@ -12,7 +15,8 @@ public class Guarana extends Plant {
         attacker.setStrength(attacker.getStrength() + 3);
         world.placeOnBoard(attacker);
         world.addLog(attacker.getName() + " has eaten " + this.getName() + " at " + this.position.toString());
-        world.addLog("Guarana has strengthen " + attacker.getName() + " by 3 points");
+        world.addLog("Guarana has strengthen " + attacker.getName() + " by 3 points, new strength: " + attacker.getStrength());
+        this.position = null;
     }
 
     @Override

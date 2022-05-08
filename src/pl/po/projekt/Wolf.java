@@ -1,6 +1,9 @@
+package pl.po.projekt;
+
 import java.awt.*;
 
 public class Wolf extends Animal {
+    public Wolf() {super();}
     public Wolf(Point position, World world) {
         super(9, 5, position, world);
     }

@@ -1,4 +1,6 @@
-import java.awt.*;
+package pl.po.projekt;
+
+import java.awt.Color;
 
 public class Human extends Animal {
     private int currentStateRounds = 5;
@@ -57,5 +59,11 @@ public class Human extends Animal {
 
     public Color getColor() {
         return new Color(255,0,200);
+    }
+
+    @Override
+    public String print() {
+        int abilityActivated = this.abilityActivated ? 1 : 0;
+        return this.getName() + " " + this.getPosition().getX() + " " + this.getPosition().getY() + " " + this.getStrength() + " " + abilityActivated + " " + getCurrentStateRounds();
     }
 }

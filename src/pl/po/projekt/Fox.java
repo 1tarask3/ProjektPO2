@@ -1,7 +1,10 @@
-import java.awt.*;
+package pl.po.projekt;
+
 import java.util.Random;
+import java.awt.Color;
 
 public class Fox extends Animal {
+    public Fox() {super();}
     public Fox(Point position, World world) {
         super(3, 7, position, world);
     }

@@ -1,6 +1,9 @@
-import java.awt.*;
+package pl.po.projekt;
+
+import java.awt.Color;
 
 public class Sheep extends Animal {
+    public Sheep() {super();}
     public Sheep(Point position, World world) {
         super(4, 4, position, world);
     }

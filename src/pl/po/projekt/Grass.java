@@ -1,6 +1,9 @@
-import java.awt.*;
+package pl.po.projekt;
+
+import java.awt.Color;
 
 public class Grass extends Plant {
+    public Grass() {super();}
     public Grass(Point position, World world) {
         super(0, 20, position, world);
     }

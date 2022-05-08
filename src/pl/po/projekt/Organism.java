@@ -1,16 +1,20 @@
-import java.awt.*;
+package pl.po.projekt;
+
+import java.awt.Color;
 
 public abstract class Organism {
     protected int strength, initiative, age;
     protected Point position;
     protected World world;
 
-    public Organism (int strength, int initiative, Point position, World world) {
+    public Organism() {}
+
+    public Organism(int strength, int initiative, Point position, World world) {
         this.strength = strength;
         this.initiative = initiative;
         this.position = position;
         this.world = world;
-        world.placeOnBoard(this);
+        this.world.placeOnBoard(this);
         world.addLog("Organism " + this.getName() + " created on position " + this.getPosition().toString());
     }
 
@@ -68,4 +72,8 @@ public abstract class Organism {
     public abstract boolean sameSpecies(Organism organism);
     public abstract Color getColor();
     public abstract String getName();
+
+    public String print() {
+        return this.getName() + " " + this.getPosition().getX() + " " + this.getPosition().getY() + " " + this.getStrength();
+    }
 }
