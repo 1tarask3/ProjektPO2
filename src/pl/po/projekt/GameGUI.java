@@ -29,7 +29,7 @@ public class GameGUI extends JFrame implements KeyListener {
         this.getContentPane().setBackground(Color.darkGray);
         this.setBackground(Color.pink);
         this.setLayout(new BorderLayout());
-        this.setTitle("xddddddddddds gowno jebane");
+        this.setTitle("Projekt Java - symulacja świata");
         this.setResizable(false);
         this.setFocusable(true);
         this.setVisible(true);

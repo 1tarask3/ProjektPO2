@@ -9,7 +9,7 @@ public class AddNewOrganismPanel extends JFrame {
 
     public AddNewOrganismPanel(GameGUI gui, Tile tile, WorldManager worldManager) {
         this.setTitle("Dodaj nowy organizm");
-        this.setPreferredSize(new Dimension(100, 500));
+        this.setPreferredSize(new Dimension(100, 600));
         JPanel panel = new JPanel();
         ArrayList<ChooseOrganismButton> buttons = new ArrayList<>();
         for (Class<? extends Organism> aClass : organismsList) {
