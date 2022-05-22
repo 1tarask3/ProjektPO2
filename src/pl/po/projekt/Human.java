@@ -1,26 +1,15 @@
 package pl.po.projekt;
 
-import java.awt.Color;
+import java.awt.*;
+import java.util.Random;
 
 public class Human extends Animal {
-    private int currentStateRounds = 5;
+    private int abilityCooldown = 10;
     private boolean abilityActivated = false;
     private Direction direction = null;
 
     public Human(Point position, World world) {
         super(5, 4, position, world);
-    }
-
-    public void setCurrentStateRounds(int currentStateRounds) {
-        this.currentStateRounds = currentStateRounds;
-    }
-
-    public void incrementStateRounds() {
-        currentStateRounds++;
-    }
-
-    public int getCurrentStateRounds() {
-        return currentStateRounds;
     }
 
     public void setAbilityActivated(boolean abilityActivated) {
@@ -39,12 +28,41 @@ public class Human extends Animal {
         return direction;
     }
 
+    public void setAbilityCooldown(int abilityCooldown) {
+        this.abilityCooldown = abilityCooldown;
+    }
+
+    public int getAbilityCooldown() {
+        return this.abilityCooldown;
+    }
+
     @Override
     public void action() {
-        int additionalMove = abilityActivated ? 1 : 0;
+        int additionalMove = 0;
+        if (abilityActivated) {
+            if (abilityCooldown < 3) {
+                additionalMove = 1;
+            }
+            else {
+                int rand = new Random().nextInt(2);
+                if (rand == 0) {
+                    additionalMove = 1;
+                }
+            }
+        }
         if (position.shift(direction, 1 + additionalMove).isOnTheBoard(world)) {
             moveTo(position.shift(direction, 1 + additionalMove));
+        } else if (position.shift(direction, 1).isOnTheBoard(world)) {
+            moveTo(position.shift(direction, 1));
         }
+        abilityCooldown++;
+
+        if (abilityCooldown == 5) abilityActivated = false;
+    }
+
+    public void activateAbility() {
+        abilityActivated = true;
+        abilityCooldown = 0;
     }
 
     @Override
@@ -64,6 +82,6 @@ public class Human extends Animal {
     @Override
     public String print() {
         int abilityActivated = this.abilityActivated ? 1 : 0;
-        return this.getName() + " " + this.getPosition().getX() + " " + this.getPosition().getY() + " " + this.getStrength() + " " + abilityActivated + " " + getCurrentStateRounds();
+        return this.getName() + " " + this.getPosition().getX() + " " + this.getPosition().getY() + " " + this.getStrength() + " " + abilityActivated + " " + abilityCooldown;
     }
 }

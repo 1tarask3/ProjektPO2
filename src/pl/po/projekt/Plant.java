@@ -31,7 +31,6 @@ public abstract class Plant extends Organism {
 
         if (count > 0) {
             int rand = new Random().nextInt(count);
-            Organism newOrganism = null;
 
             world.addLog(this.getName() + " at " + this.getPosition().toString() +  " has spread");
 

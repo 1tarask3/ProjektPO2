@@ -89,9 +89,7 @@ public class World {
             if (o1.getInitiative() > o2.getInitiative()) return -1;
             else if (o1.getInitiative() < o2.getInitiative()) return 1;
             else {
-                if (o1.getAge() > o2.getAge()) return -1;
-                else if (o1.getAge() < o2.getAge()) return 1;
-                else return 0;
+                return Integer.compare(o2.getAge(), o1.getAge());
             }
         });
 

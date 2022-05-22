@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class AddNewOrganismPanel extends JFrame {
+public class AddNewOrganismFrame extends JFrame {
     private final static OrganismsArrayList organismsList = new OrganismsArrayList();
 
-    public AddNewOrganismPanel(GameGUI gui, Tile tile, WorldManager worldManager) {
+    public AddNewOrganismFrame(GameGUI gui, Tile tile, WorldManager worldManager) {
         this.setTitle("Dodaj nowy organizm");
         this.setPreferredSize(new Dimension(100, 600));
         JPanel panel = new JPanel();

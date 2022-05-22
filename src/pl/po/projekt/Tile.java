@@ -26,7 +26,7 @@ public class Tile extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (worldManager.getWorld().getOrganismFromBoard(position) == null) new AddNewOrganismPanel(gui, this, worldManager);
+        if (worldManager.getWorld().getOrganismFromBoard(position) == null) new AddNewOrganismFrame(gui, this, worldManager);
     }
 
     @Override

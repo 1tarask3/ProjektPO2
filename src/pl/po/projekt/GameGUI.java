@@ -11,25 +11,23 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameGUI extends JFrame implements KeyListener {
-    private final WorldManager worldManager;
+    private final WorldManager worldManager = new WorldManager();
     private final InfoPanel infoPanel;
     private final LogPanel logPanel;
     private final JPanel gamePanel;
     private final static int GAME_PANEL_SIDE_SIDE = 600;
     private final static int WIDTH = 1000;
-    private final static int HEIGHT = 800;
+    private final static int HEIGHT = 650;
     private Direction humansDirection = null;
-    private boolean gameInProgress = false;
 
 
-    GameGUI(WorldManager worldManager) {
-        this.worldManager = worldManager;
+    GameGUI() {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.darkGray);
         this.setBackground(Color.pink);
         this.setLayout(new BorderLayout());
-        this.setTitle("Projekt Java - symulacja świata");
+        this.setTitle("Projekt Java - symulacja świata, Jakub Tarasiuk 188722");
         this.setResizable(false);
         this.setFocusable(true);
         this.setVisible(true);
@@ -60,7 +58,6 @@ public class GameGUI extends JFrame implements KeyListener {
         gamePanel.removeAll();
         worldManager.GenerateNewWorld(x, y);
         draw();
-        gameInProgress = true;
         infoPanel.setVisibleButtonsWhenGameInProgress();
         gamePanel.setVisible(true);
     }

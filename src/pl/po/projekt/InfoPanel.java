@@ -6,13 +6,15 @@ import java.io.File;
 
 public class InfoPanel extends JPanel {
     private final static int INFO_PANEL_WIDTH = 600;
-    private final static int INFO_PANEL_HEIGHT = 200;
+    private final static int INFO_PANEL_HEIGHT = 50;
     public JButton newGameButton = new JButton("Nowa gra");
     public JButton newTourButton = new JButton("Nowa tura");
     public JButton readGameButton = new JButton("Wczytaj grę");
     public JButton saveGameButton = new JButton("Zapisz grę");
-    public JTextField newGameXLabel = new JTextField("Szerokość planszy");
-    public JTextField newGameYLabel = new JTextField("Wysokość planszy");
+    public JButton superabilityButton = new JButton("Aktywuj superumiejetność");
+    public JTextField newGameXLabel = new JTextField("Szerokość");
+    public JTextField newGameYLabel = new JTextField("Wysokość");
+    public JLabel abilityActivated = new JLabel("UMIEJĘTNOSĆ AKTYWOWANA");
     public JLabel humansDirectionLabel = new JLabel("Następny ruch gracza: ");
     public JLabel humansDirection = new JLabel();
     private final WorldManager worldManager;
@@ -31,6 +33,8 @@ public class InfoPanel extends JPanel {
                 if (y < 10) y = 10;
                 GUI.newGame(x, y);
                 GUI.draw();
+
+                setVisibleButtonsWhenGameInProgress();
             }
             catch (Exception ex) {
                 System.out.println("Wprowadź liczby całkowite z przedziału 10-150");
@@ -40,6 +44,7 @@ public class InfoPanel extends JPanel {
         newTourButton.addActionListener(e -> {
             worldManager.doTour(GUI.getHumansDirection());
             GUI.draw();
+            setVisibleButtonsWhenGameInProgress();
         });
         saveGameButton.addActionListener(e -> {
             try {
@@ -57,10 +62,38 @@ public class InfoPanel extends JPanel {
             GUI.draw();
             setVisibleButtonsWhenGameInProgress();
         });
+        superabilityButton.addActionListener(e -> {
+            worldManager.activateSuperability();
+            superabilityButton.setVisible(false);
+            abilityActivated.setVisible(true);
+        });
+        newGameButton.setFocusable(false);
+        readGameButton.setFocusable(false);
+        humansDirection.setFocusable(false);
+        humansDirection.setForeground(Color.white);
+        humansDirectionLabel.setFocusable(false);
+        humansDirectionLabel.setForeground(Color.white);
+        abilityActivated.setFocusable(false);
+        abilityActivated.setForeground(Color.pink);
+        newTourButton.setFocusable(false);
+        saveGameButton.setFocusable(false);
+        superabilityButton.setFocusable(false);
         this.add(newGameXLabel);
         this.add(newGameYLabel);
         this.add(newGameButton);
         this.add(readGameButton);
+        saveGameButton.setVisible(false);
+        this.add(saveGameButton);
+        newTourButton.setVisible(false);
+        this.add(newTourButton);
+        humansDirectionLabel.setVisible(false);
+        this.add(humansDirectionLabel);
+        humansDirection.setVisible(false);
+        this.add(humansDirection);
+        superabilityButton.setVisible(false);
+        this.add(superabilityButton);
+        abilityActivated.setVisible(false);
+        this.add(abilityActivated);
         this.setPreferredSize(new Dimension(INFO_PANEL_WIDTH, INFO_PANEL_HEIGHT));
         this.setBackground(Color.black);
         this.setFocusable(false);
@@ -68,9 +101,24 @@ public class InfoPanel extends JPanel {
     }
 
     public void setVisibleButtonsWhenGameInProgress() {
-        this.add(saveGameButton);
-        this.add(newTourButton);
-        this.add(humansDirectionLabel);
-        this.add(humansDirection);
+        newTourButton.setVisible(true);
+        saveGameButton.setVisible(true);
+
+        if (worldManager.isHumanAlive()) {
+            humansDirection.setVisible(true);
+            humansDirectionLabel.setVisible(true);
+            int cooldown = worldManager.getWorld().getHuman().getAbilityCooldown();
+            if (cooldown >= 10) {
+                superabilityButton.setVisible(true);
+            }
+            else if (cooldown >= 5){
+                abilityActivated.setVisible(false);
+            }
+        }
+        else {
+            humansDirection.setVisible(false);
+            humansDirectionLabel.setVisible(false);
+            superabilityButton.setVisible(false);
+        }
     }
 }

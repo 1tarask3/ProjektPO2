@@ -2,7 +2,7 @@ package pl.po.projekt;
 
 import java.awt.Color;
 
-public class Belladonna extends Plant {
+public final class Belladonna extends Plant {
     public Belladonna() {super();}
     public Belladonna(Point position, World world) {
         super(99, 4, position, world);

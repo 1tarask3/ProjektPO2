@@ -16,25 +16,36 @@ public class WorldManager {
         world = new World(x, y);
         int organismsPerSpecies = world.getMaxNumberOfOrganisms() * fill / 1000;
 
-        Human human = new Human(world.getRandomEmptyPosition(), world);
+        new Human(world.getRandomEmptyPosition(), world);
 
         for (int i = 0; i < organismsPerSpecies; i++) {
-            Antelope antelope = new Antelope(world.getRandomEmptyPosition(), world);
-            Belladonna belladonna = new Belladonna(world.getRandomEmptyPosition(), world);
-            Dandelion dandelion = new Dandelion(world.getRandomEmptyPosition(), world);
-            Fox fox = new Fox(world.getRandomEmptyPosition(), world);
-            Grass grass = new Grass(world.getRandomEmptyPosition(), world);
-            Guarana guarana = new Guarana(world.getRandomEmptyPosition(), world);
-            Hogweed hogweed = new Hogweed(world.getRandomEmptyPosition(), world);
-            Sheep sheep = new Sheep(world.getRandomEmptyPosition(), world);
-            Turtle turtle = new Turtle(world.getRandomEmptyPosition(), world);
-            Wolf wolf = new Wolf(world.getRandomEmptyPosition(), world);
+            new Antelope(world.getRandomEmptyPosition(), world);
+            new Belladonna(world.getRandomEmptyPosition(), world);
+            new Dandelion(world.getRandomEmptyPosition(), world);
+            new Fox(world.getRandomEmptyPosition(), world);
+            new Grass(world.getRandomEmptyPosition(), world);
+            new Guarana(world.getRandomEmptyPosition(), world);
+            new Hogweed(world.getRandomEmptyPosition(), world);
+            new Sheep(world.getRandomEmptyPosition(), world);
+            new Turtle(world.getRandomEmptyPosition(), world);
+            new Wolf(world.getRandomEmptyPosition(), world);
         }
+    }
+
+    public boolean isHumanAlive() {
+        return world.getHuman() != null;
     }
 
     public void setHumanNextDirection(Direction direction){
         if (world.getHuman() != null) {
             world.getHuman().setDirection(direction);
+        }
+    }
+
+    public void activateSuperability() {
+        Human human = world.getHuman();
+        if (human != null) {
+            human.activateAbility();
         }
     }
 
@@ -94,11 +105,11 @@ public class WorldManager {
                     int yPos = Integer.parseInt(args[2]);
                     int strength = Integer.parseInt(args[3]);
                     boolean abilityActivated = !args[4].equals("0");
-                    int currentStateRounds = Integer.parseInt(args[5]);
+                    int abilityCooldown = Integer.parseInt(args[5]);
                     Human human = new Human(new Point(xPos,yPos), world);
                     human.setStrength(strength);
                     human.setAbilityActivated(abilityActivated);
-                    human.setCurrentStateRounds(currentStateRounds);
+                    human.setAbilityCooldown(abilityCooldown);
                 }
                 else {
                     Point position = new Point(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
